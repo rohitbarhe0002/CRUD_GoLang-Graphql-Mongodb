@@ -1,0 +1,72 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Todo {
+  id: ID!
+  text: String!
+  done: Boolean!
+  user: User!
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  todos: [Todo!]!
+  boards:[Board!]!
+  boardByID(id: ID!): Board
+}
+
+type Board {
+  _id: ID!
+  name: String!
+  isActive: Boolean!
+  columns: [Column!]!
+}
+input CreateBoardInput {
+    name: String!
+    isActive: Boolean!
+    columns: [ColumnInput!]!
+}
+
+input ColumnInput {
+    name: String!
+    tasks: [TaskInput!]!
+}
+
+input TaskInput {
+    title: String!
+    description: String!
+    status: String!
+    subtasks: [SubtaskInput!]!
+}
+
+input SubtaskInput {
+    title: String!
+    isCompleted: Boolean!
+}
+
+type Mutation {
+    createBoard(input: CreateBoardInput!): Board!
+}
+
+
+type Column {
+    name: String!
+    tasks: [Task!]!
+}
+
+type Task {
+    title: String!
+    description: String!
+    status: String!
+    subtasks: [Subtask!]!
+}
+
+type Subtask {
+    title: String!
+    isCompleted: Boolean!
+}
